@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset= "utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Présentation Tinkercad</title>
+</head>
+<body>
+    <div>
+        <header class="main-head">
+            <nav>
+                <h1 id="photo"><img src="img/photo.jpg"alt="photo" width="150">
+                    <p>Julien Maupilier 17 ans</h1>
+                  <ul>
+                        <li><h4><a href="index.html">Page d'accueil</a></h4></li>
+                        <li><h4><a href="solidworks.html">SolidWorks</a></h4></li>
+                  </ul>
+            </nav>
+      </header>
+    <h2>Premier Projet</h2>
+    <h6>Présentation Code et Montage</h6>
+    <h5><li> Pour utiliser le capteur LDR – PHOTORÉSISTANCE que j'ai placé sur le phare de mon vélo, j'ai utilisé un capteur, j'ai créé un code plus un montage à l'aide d'un Arduino Uno</li><p>
+        <img src="img/montage.png">
+        <li>Pour utiliser ce montage, j'ai du créer un code en C++. Il permet de dire au capteur d'allumer la lumière lorsque la luminosité est basse.<p>Le code en C++ est donc :</p></li>
+    </h5>
+
+            <h7><p>const int analogInPin = A0;</p>   
+            <p>const int analogOutPin = 8;</p>>   
+            
+            <p>int sensorValue = 0;</p>          
+            <p>int outputValue = 0;</p>          
+            
+            <p>void setup() {</p>
+            
+              <p>Serial.begin(9600);</p>
+              
+              
+              <p>pinMode(analogOutPin, OUTPUT);</p>
+              
+             
+              <p>pinMode(analogInPin, INPUT);</p>     
+            <p>}</p>
+            
+            <p>void loop() {</p>
+            
+              <p>sensorValue = analogRead(analogInPin);</p>
+              
+            
+              <p>outputValue = map(sensorValue, 0, 1023, 0, 255);</p>  
+              <p>outputValue = (outputValue - 255)*-1;</p>
+            
+              <p>analogWrite(analogOutPin, outputValue);</p> 
+              
+              <p>Serial.print("sensor = " );</p>                       
+              <p>Serial.print(sensorValue);</p>      
+              <p>Serial.print("\t output = ");</p>      
+              <p>Serial.println(outputValue);</p>
+            <p>}</p>
+            </h7>
+            <h2>Second Projet</h2>
+            <h6>Présentation du Projet</h6>
+         <h5><li>Le second projet que je suis en train de réaliser est une application pour un distributeur automatique de nourriture pour animaux. Mon application consiste à pouvoir suivre à distance la quantité de nourriture que l'animal à dans sa gamelle, si l'animale n'a plus de nourriture dans sa gamelle, son maître peut en rajouter à distance avec une quantité de nourriture qu'il y a déjà dans la réserve du distributeur. Il y a aussi une fonctionnalité pour pouvoir suivre la santé de son animal à distance à l'aide d'un collier que l'animal portera; ce collier prélevera son pouls et sa position.</li></h5> 
+        <img src="img/montage2.jpg"alt="photo" width="600"><h5>Ce montage, est composé d'un émetteur-récepteur Bluetooth (hc-06 HC 06 RF). Il va permettre de connété l'Arduino à l'application smartphone. Dans ce montage il y a aussi un Micro Servo (SG90 9G) relié à un bouton poussoir. L'orsque l'utilisateur appuira sur le bouton poussoire, la roue du Micro Servo tournera. Et grâce à l'émetteur-récepteur Bluetooth, l'utilisateur pourra contrôler cette fonctionnalité à distance. </h5>
+        <h5>
+              <li>Pour utiliser se montage, j'ai réalisé un code en C++ :</li>
+        </h5>
+
+
+
+<h7>              <p>#include SoftwareSerial.h</p>
+
+                        <p>SoftwareSerial HC06 (11,10);</p>
+                        <p>const char DOUT_LED = 2;</p>
+                        <p>String messageRecu;</p>
+                        
+                        <p>void setup () {</p>
+                          <p>Serial.begin(9600);</p>
+                          <p>HC06.begin(9600);</p>
+                          <p>pinMode(DOUT_LED, OUTPUT);</p>
+                          <p>digitaleWrite(DOUT_LED, LOW);</p>
+                        <p>}</p>
+                        
+                        <p>void loop() {</p>
+                          <p>while(HC06.available())</p>
+                          <p>{</p>
+                            <p>dleay(3);</p>
+                            <p>char c = HC06.read();</p>
+                            <p>messageRecu += c;</p>
+                          <p>}</p>
+                          <p>if (messageRecu.length() >0)</p>
+                          <p>{</p>
+                            <p>Serial.println(messagegeRecu);</p>
+                            <p>if (messageRecu == "LED:1")</p>
+                              <p>{digitalWrite(DOUT_LED, LOW);}</p>
+                            <p>if (messageRecu == "LED:0")</p>
+                              <p>{digitalWrite(DOUT_LED, LOW);}</p>
+                            <p>messageRecu="";</p> 
+                            
+                          <p>}</p>
+                        <p>}</p>
+                        
+                        <p>#include Servo.h</p>
+                        
+                        <p>Servo monservo;</p>
+                        
+                        <p>int bouton = 8;</p>
+                        <p>int etatbouton = 0;</p>
+                        
+                        <p>void setup(){</p>
+                          <p>pinMode (bouton, INPUT);</p>
+                          <p>monservo.attach(9);</p>
+                        <p>}</p>
+                        
+                        <p>void loop() {</p>
+                          <p>etatbouton==digitalRead (bouton);</p>
+                        
+                          <p>if (etatbouton==HIGH) {</p>
+                            <p>monservo.write (90);</p>
+                            <p>delay(5000);</p>
+                            <p>monservo.write (0);</p>
+                            <p>delay (150);</p>
+                          <p>}</p>
+                        <p>}</p>
+</h7>
+                  
+        <body> <footer>
+            <div class="contenu-footer">
+                  <div class="bloc footer-services">
+                        <h3>Me contacter</h3>
+                        <ul class="listes-services">
+                              <p>📧 maupilier.julien@gmail.com</p>
+                              <p>🤖 Discord : machplaye#7816</p>
+
+                        </ul>
+                  </div>
+            </body>
+
+            </div>
+      </footer>
+        
+        </div>
+    
+</body>
+</html>
